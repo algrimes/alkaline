@@ -37,11 +37,13 @@ module WeatherService
     end
     
     def today_max
-      forecast_page.css('#content div .forecast .max')[0].text
+      temp = forecast_page.css('#content div:nth-of-type(1) .forecast .max')
+      temp.nil? ? "" : temp.text
     end
     
     def tomorrow_max
-      forecast_page.css('#content div .forecast .max')[1].text
+      temp = forecast_page.css('#content div:nth-of-type(2) .forecast .max')
+      temp.nil? ? "" : temp.text
     end
     
   end

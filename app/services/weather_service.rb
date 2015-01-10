@@ -9,7 +9,9 @@ module WeatherService
       "current_temp" => observations_page.current_temp,
       "highest_temp" => observations_page.highest_temp,
       "today_max" => forecast_page.today_max,
-      "tomorrow_max" => forecast_page.tomorrow_max
+      "tomorrow_max" => forecast_page.tomorrow_max,
+      "today_chance_of_rain" => forecast_page.today_chance_of_rain,
+      "tomorrow_chance_of_rain" => forecast_page.tomorrow_chance_of_rain
     }
   end
   
@@ -50,6 +52,14 @@ module WeatherService
     def today_max
       temp = forecast_page.css('#content div:nth-of-type(1) .forecast .max')
       temp.nil? ? "" : temp.text
+    end
+    
+    def today_chance_of_rain
+      forecast_page.css('.rain .pop')[0].text
+    end
+    
+    def tomorrow_chance_of_rain
+      forecast_page.css('.rain .pop')[1].text
     end
     
     def tomorrow_max

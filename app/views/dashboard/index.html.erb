@@ -1,11 +1,15 @@
 <h1>Dashboard</h1>
 <h2>Weather</h2>
-<p>Current temperature: <%= @view["weather"]["current_temp"] %>°C</p>
-<p>Highest recorded temperature: <%= @view["weather"]["highest_temp"] %>°C</p>
+<h3>Today</h3>
+<p>Now: <%= @view["weather"]["current_temp"] %>°C</p>
+<p>Max: <%= @view["weather"]["highest_temp"] %>°C</p>
 <% unless @view["weather"]["today_max"].empty? %>
-<p>Forecast maximum: <%= @view["weather"]["today_max"] %>°C</p>
+<p>Forecast High: <%= @view["weather"]["today_max"] %>°C</p>
 <% end %>
-<p>Tomorrow's forecast maximum: <%= @view["weather"]["tomorrow_max"] %>°C</p>
+<p>Chance of rain: <%= @view["weather"]["today_chance_of_rain"] %></p>
+<h3>Tomorrow</h3>
+<p>Forecast High: <%= @view["weather"]["tomorrow_max"] %>°C</p>
+<p>Chance of rain: <%= @view["weather"]["tomorrow_chance_of_rain"] %></p>
 <h2>Trains</h2>
 <h3>To City</h3>
 <% @view["transport"]["city_trains"].each do | departure | %>
@@ -16,3 +20,8 @@
 <li><%= departure["departure_time"]%> <%= departure["destination"]%> - <%= departure["departing_in"]%></li>
 <% end%>
 </ol>
+<h2>Gravy</h2>
+<h3>GBP to AUD</h3>
+<p><%= @view["currency"]["gbp_aud"] %></p>
+<h3>AUD to GBP</h3>
+<p><%= @view["currency"]["aud_gbp"] %></p>

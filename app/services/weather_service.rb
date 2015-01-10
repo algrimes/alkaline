@@ -8,7 +8,7 @@ module WeatherService
     { 
       "current_temp" => observations_page.current_temp,
       "highest_temp" => observations_page.highest_temp,
-      "forecast_max" => forecast_page.today_max,
+      "today_max" => forecast_page.today_max,
       "tomorrow_max" => forecast_page.tomorrow_max
     }
   end

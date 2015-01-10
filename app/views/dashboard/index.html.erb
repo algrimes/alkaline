@@ -1,7 +1,10 @@
 <h1>Dashboard</h1>
+<h2>Weather</h2>
 <p>Current temperature: <%= @view["weather"]["current_temp"] %>°C</p>
 <p>Highest recorded temperature: <%= @view["weather"]["highest_temp"] %>°C</p>
+<% unless @view["weather"]["today_max"].empty? %>
 <p>Forecast maximum: <%= @view["weather"]["today_max"] %>°C</p>
+<% end %>
 <p>Tomorrow's forecast maximum: <%= @view["weather"]["tomorrow_max"] %>°C</p>
 <h2>Trains</h2>
 <h3>To City</h3>

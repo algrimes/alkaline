@@ -3,9 +3,13 @@
 <p>Highest recorded temperature: <%= @view["weather"]["highest_temp"] %>°C</p>
 <p>Forecast maximum: <%= @view["weather"]["today_max"] %>°C</p>
 <p>Tomorrow's forecast maximum: <%= @view["weather"]["tomorrow_max"] %>°C</p>
-<h3>Trains</h3>
-<ol>
-<% @view["transport"].each do | departure | %>
-<li>Towards: <%= departure["destination"]%> Departing in: <%= departure["departing_in"]%></li>
+<h2>Trains</h2>
+<h3>To City</h3>
+<% @view["transport"]["city_trains"].each do | departure | %>
+<li><%= departure["departure_time"]%> <%= departure["destination"]%> - <%= departure["departing_in"]%></li>
+<% end%>
+<h3>To the yeast</h3>
+<% @view["transport"]["rest"].each do | departure | %>
+<li><%= departure["departure_time"]%> <%= departure["destination"]%> - <%= departure["departing_in"]%></li>
 <% end%>
 </ol>

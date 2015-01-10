@@ -4,7 +4,7 @@ class DashboardController < ApplicationController
   include ::PublicTransportService
 
   def index
-    @view = { "weather" => WeatherService.latest, "transport" => PublicTransportService.next_tram_departures }
+    @view = { "weather" => WeatherService.latest, "transport" => PublicTransportService.train_departures }
   end
   
 end

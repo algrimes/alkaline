@@ -3,27 +3,38 @@ module WeatherService
   require 'open-uri'
   
   def self.latest
-    current_temp_page = CurrentTempPage.new(Nokogiri::HTML(open('http://www.bom.gov.au/products/IDV60901/IDV60901.95936.shtml')))
+    observations_page = ObservationsPage.new(Nokogiri::HTML(open('http://www.bom.gov.au/products/IDV60901/IDV60901.95936.shtml')))
     forecast_page = ForecastPage.new(Nokogiri::HTML(open('http://www.bom.gov.au/vic/forecasts/melbourne.shtml')))
     { 
-      "current_temp" => current_temp_page.current_temp,
-      "today_max" => forecast_page.today_max,
+      "current_temp" => observations_page.current_temp,
+      "highest_temp" => observations_page.highest_temp,
+      "forecast_max" => forecast_page.today_max,
       "tomorrow_max" => forecast_page.tomorrow_max
     }
   end
   
   private 
   
-  class CurrentTempPage
+  class ObservationsPage
     
-    attr_accessor :current_temp_page
+    attr_accessor :observations_page
     
-    def initialize current_temp_page
-      @current_temp_page = current_temp_page
+    def initialize observations_page
+      @observations_page = observations_page
+    end
+    
+    def highest_temp
+      today_temps.map { |temp| temp.text }.max
     end
     
     def current_temp
-      current_temp_page.css('td[headers=\'t1-temp\']')[0].text
+      today_temps[0].text
+    end
+    
+    private 
+    
+    def today_temps
+      observations_page.css("table#t1 td[headers=\'t1-temp\']")
     end
     
   end

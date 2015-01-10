@@ -1,1 +1,1 @@
-Alkaline::Application.config.nearest_tram_stop = ENV.fetch("DEFAULT_TRAM_STOP_ID")
+Alkaline::Application.config.nearest_train_stop = ENV.fetch("DEFAULT_TRAIN_STOP_ID")

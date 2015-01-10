@@ -4,7 +4,7 @@
 <p>Current temperature: <%= @view["weather"]["current_temp"] %>°C</p>
 <p>Today's predicted maximum: <%= @view["weather"]["today_max"] %>°C</p>
 <p>Tomorrow's predicted maximum: <%= @view["weather"]["tomorrow_max"] %>°C</p>
-<h3>Trams</h3>
+<h3>Trains</h3>
 <ol>
 <% @view["transport"].each do | departure | %>
 <li>Towards: <%= departure["destination"]%> Departing in: <%= departure["departing_in"]%></li>

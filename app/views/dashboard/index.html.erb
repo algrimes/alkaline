@@ -25,3 +25,7 @@
 <p><%= @view["currency"]["gbp_aud"] %></p>
 <h3>AUD to GBP</h3>
 <p><%= @view["currency"]["aud_gbp"] %></p>
+<h2>Events</h2>
+<% @view["events"].each do |event| %>
+<%= event.to_s.html_safe %>
+<% end %>

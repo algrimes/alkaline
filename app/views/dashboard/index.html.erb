@@ -1,31 +1,56 @@
-<h1>Dashboard</h1>
-<h2>Weather</h2>
-<h3>Today</h3>
-<p>Now: <%= @view["weather"]["current_temp"] %>°C</p>
-<p>Max: <%= @view["weather"]["highest_temp"] %>°C</p>
-<% unless @view["weather"]["today_max"].empty? %>
-<p>Forecast High: <%= @view["weather"]["today_max"] %>°C</p>
-<% end %>
-<p>Chance of rain: <%= @view["weather"]["today_chance_of_rain"] %></p>
+<div class="weather">
+	<h3>Today</h3>
+
+	<dl>
+		<dt>Now</dt>
+		<dd><a href="http://www.bom.gov.au/products/IDV60901/IDV60901.95936.shtml"><%= @view["weather"]["current_temp"] %><span>°C</span></a></dt>
+	</dl>
+	<dl>
+		<dt>Recorded max.</dt>
+		<dd><%= @view["weather"]["highest_temp"] %><span>°C</span></dd>
+	</dl>
+	<% unless @view["weather"]["today_max"].empty? %>
+	<dl>
+		<dt>Forecast high</dt> 
+		<dd><a href="http://www.bom.gov.au/vic/forecasts/melbourne.shtml"><%= @view["weather"]["today_max"] %><span>°C</span></a></dd>
+	</dl>
+	<% end %>
+	<dl class="clear">	
+		<dt>Chance of rain</dt>
+		<dd><%= @view["weather"]["today_chance_of_rain"] %></dd>
+	</dl>
+</div>
+<div class="weather">
 <h3>Tomorrow</h3>
-<p>Forecast High: <%= @view["weather"]["tomorrow_max"] %>°C</p>
-<p>Chance of rain: <%= @view["weather"]["tomorrow_chance_of_rain"] %></p>
-<h2>Trains</h2>
-<h3>To City</h3>
-<% @view["transport"]["city_trains"].each do | departure | %>
-<li><%= departure["departure_time"]%> <%= departure["destination"]%> - <%= departure["departing_in"]%></li>
-<% end%>
-<h3>To the yeast</h3>
+
+	<dl>
+		<dt>Forecast high</dt>
+		<dd><a href="http://www.bom.gov.au/vic/forecasts/melbourne.shtml"><%= @view["weather"]["tomorrow_max"] %><span>°C</span></a></dd>
+	</dl>
+	<dl>
+	<dt>Chance of rain</dt> 
+	<dd><a href="http://www.bom.gov.au/vic/forecasts/melbourne.shtml"><%= @view["weather"]["tomorrow_chance_of_rain"] %></a></dd>
+	</dl>
+</div>
+<h3>Trains to city</h3>
+<ul>
+	<% @view["transport"]["city_trains"].each do | departure | %>
+	<li><%= departure["departure_time"]%> <%= departure["destination"]%> - <%= departure["departing_in"]%></li>
+	<% end%>
+</ul>
+<!-- <h3>To the yeast</h3>
+<ul>
 <% @view["transport"]["rest"].each do | departure | %>
 <li><%= departure["departure_time"]%> <%= departure["destination"]%> - <%= departure["departing_in"]%></li>
 <% end%>
-</ol>
-<h2>Gravy</h2>
-<h3>GBP to AUD</h3>
-<p><%= @view["currency"]["gbp_aud"] %></p>
-<h3>AUD to GBP</h3>
-<p><%= @view["currency"]["aud_gbp"] %></p>
-<h2>Events</h2>
+</ul> -->
+
+
+<ul class="currency">
+	<li><%= @view["currency"]["gbp_aud"] %></li>
+	<li><%= @view["currency"]["aud_gbp"] %></li>
+</ul>
+<h3>Events</h3>
 <% @view["events"].each do |event| %>
 <%= event.to_s.html_safe %>
 <% end %>

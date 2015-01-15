@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+require "action_controller/railtie"
+require "sprockets/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -9,6 +10,7 @@ Bundler.require(:default, Rails.env)
 module Alkaline
   class Application < Rails::Application
     config.autoload_paths << Rails.root.join("app/services")
+    config.assets.paths << Rails.root.join("/app/assets/fonts")
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

@@ -51,7 +51,7 @@ module WeatherService
     
     def today_max
       temp = forecast_page.css('#content div:nth-of-type(1) .forecast .max')
-      temp.nil? ? "" : temp.text
+      temp.nil? ? "unknown" : temp.text
     end
     
     def today_chance_of_rain
@@ -59,12 +59,13 @@ module WeatherService
     end
     
     def tomorrow_chance_of_rain
-      forecast_page.css('.rain .pop')[1].text
+      rain = forecast_page.css('.rain .pop')[1]
+      rain.nil? ? "unknown" : rain.text
     end
     
     def tomorrow_max
       temp = forecast_page.css('#content div:nth-of-type(2) .forecast .max')
-      temp.nil? ? "" : temp.text
+      temp.nil? ? "unknown" : temp.text
     end
     
   end

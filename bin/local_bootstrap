@@ -1,0 +1,6 @@
+export LOCATION_LAT="0.000000"
+export LOCATION_LONG="0.00000"
+export PTV_DEV_ID=11111
+export PTV_SECURITY_KEY=aaaaaaaaaa
+export DEFAULT_TRAIN_STOP_ID=12345
+export SECRET_TOKEN=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

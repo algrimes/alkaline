@@ -33,11 +33,21 @@
 	</dl>
 </div>
 <h3>Trains to city</h3>
-<ul>
-	<% @view["transport"]["city_trains"].each do | departure | %>
-	<li><%= departure["departure_time"]%> <%= departure["destination"]%> - <%= departure["departing_in"]%></li>
-	<% end%>
-</ul>
+<table class="departures">
+<tr>
+	<th>Time</th>
+	<th>Destination</th>
+	<th>Departs in</th>
+</tr>
+<% @view["transport"]["city_trains"].each do | departure | %>
+<tr>
+	<td><%= departure["departure_time"]%></td>
+	<td><%= departure["destination"]%></td>
+	<td><%= departure["departing_in"]%></td>
+</tr>
+<% end%>
+</table>
+
 <!-- <h3>To the yeast</h3>
 <ul>
 <% @view["transport"]["rest"].each do | departure | %>

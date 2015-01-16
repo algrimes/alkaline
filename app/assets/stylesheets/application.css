@@ -11,6 +11,10 @@
  *= require_self
  *= require_tree .
  */
+@font-face {
+	font-family: lcd;
+	src: url('/assets/jd_lcd_rounded.woff') format('woff');	
+}
 
 body {
 	font-family: helvetica;
@@ -99,4 +103,19 @@ article {
 .currency li {
 	display: inline;
 	margin-right: 15px;
+}
+
+table.departures {
+	background-color: black;
+}
+
+table.departures th,tr {
+	padding-right: 30px;
+	font-size: 2em;
+	font-family: lcd;
+	color: orange;
+}
+
+table.departures th {
+	font-size: 1.2em;
 }

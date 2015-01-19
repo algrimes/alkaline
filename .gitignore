@@ -6,3 +6,4 @@
 /vendor/*
 /bin/*
 .DS_Store
+/log

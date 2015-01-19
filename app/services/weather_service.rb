@@ -20,8 +20,6 @@ module WeatherService
   
   class Observations
     
-    attr_accessor :observations
-    
     def initialize observations
       @observations = observations["observations"]
     end

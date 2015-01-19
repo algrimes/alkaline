@@ -9,7 +9,7 @@ module PublicTransportService
     departure_vms = departures.map { |d| departure_viewmodel d }
     
     to_city, rest = departure_vms.partition { |departure|
-      departure["destination"] == "Flinders Street"
+        ["Flinders Street", "Parliament"].include? departure["destination"]
     }
     
     { "city_trains" => to_city, "rest" => rest.take(5) }

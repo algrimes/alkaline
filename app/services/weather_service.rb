@@ -1,13 +1,14 @@
 module WeatherService
   
   require 'open-uri'
+  require 'json'
   
   def self.latest
-    observations_page = ObservationsPage.new(Nokogiri::HTML(open('http://www.bom.gov.au/products/IDV60901/IDV60901.95936.shtml')))
+    observations = Observations.new(JSON.parse(open('http://www.bom.gov.au/fwo/IDV60901/IDV60901.95936.json').read))
     forecast_page = ForecastPage.new(Nokogiri::HTML(open('http://www.bom.gov.au/vic/forecasts/melbourne.shtml')))
     { 
-      "current_temp" => observations_page.current_temp,
-      "highest_temp" => observations_page.highest_temp,
+      "current_temp" => observations.current_temp,
+      "highest_temp" => observations.highest_temp,
       "today_max" => forecast_page.today_max,
       "tomorrow_max" => forecast_page.tomorrow_max,
       "today_chance_of_rain" => forecast_page.today_chance_of_rain,
@@ -17,28 +18,22 @@ module WeatherService
   
   private 
   
-  class ObservationsPage
+  class Observations
     
-    attr_accessor :observations_page
+    attr_accessor :observations
     
-    def initialize observations_page
-      @observations_page = observations_page
+    def initialize observations
+      @observations = observations["observations"]
     end
     
     def highest_temp
-      today_temps.map { |temp| temp.text }.max
+      @observations["data"].map { |o| o["air_temp"] if o["local_date_time"][0..1].to_i == Time.now.day }.compact.max
     end
     
     def current_temp
-      today_temps[0].text
+      @observations["data"][0]["air_temp"]
     end
-    
-    private 
-    
-    def today_temps
-      observations_page.css("table#t1 td[headers=\'t1-temp\']")
-    end
-    
+
   end
   
   class ForecastPage

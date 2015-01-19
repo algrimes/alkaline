@@ -5,14 +5,14 @@ module WeatherService
   
   def self.latest
     observations = Observations.new(JSON.parse(open('http://www.bom.gov.au/fwo/IDV60901/IDV60901.95936.json').read))
-    forecast_page = ForecastPage.new(Nokogiri::HTML(open('http://www.bom.gov.au/vic/forecasts/melbourne.shtml')))
+    forecast = Forecast.new(Nokogiri::HTML(open('http://www.bom.gov.au/vic/forecasts/melbourne.shtml')))
     { 
       "current_temp" => observations.current_temp,
       "highest_temp" => observations.highest_temp,
-      "today_max" => forecast_page.today_max,
-      "tomorrow_max" => forecast_page.tomorrow_max,
-      "today_chance_of_rain" => forecast_page.today_chance_of_rain,
-      "tomorrow_chance_of_rain" => forecast_page.tomorrow_chance_of_rain
+      "today_max" => forecast.today_max,
+      "tomorrow_max" => forecast.tomorrow_max,
+      "today_chance_of_rain" => forecast.today_chance_of_rain,
+      "tomorrow_chance_of_rain" => forecast.tomorrow_chance_of_rain
     }
   end
   
@@ -34,34 +34,31 @@ module WeatherService
 
   end
   
-  class ForecastPage
+  class Forecast
     
-    attr_accessor :forecast_page
-    
-    def initialize forecast_page
-      @forecast_page = forecast_page
+    def initialize forecast
+      @forecast = forecast
     end
     
     def today_max
-      temp = forecast_page.css('#content div:nth-of-type(1) .forecast .max')
+      temp = @forecast.css('#content div:nth-of-type(1) .forecast .max')
       temp.nil? ? "unknown" : temp.text
     end
     
     def today_chance_of_rain
-      forecast_page.css('.rain .pop')[0].text
+      @forecast.css('.rain .pop')[0].text
     end
     
     def tomorrow_chance_of_rain
-      rain = forecast_page.css('.rain .pop')[1]
+      rain = @forecast.css('.rain .pop')[1]
       rain.nil? ? "unknown" : rain.text
     end
     
     def tomorrow_max
-      temp = forecast_page.css('#content div:nth-of-type(2) .forecast .max')
+      temp = @forecast.css('#content div:nth-of-type(2) .forecast .max')
       temp.nil? ? "unknown" : temp.text
     end
     
   end
-  
   
 end

@@ -4,6 +4,6 @@
 /log/*.log
 /tmp
 /vendor/*
-/bin/*
 .DS_Store
 /log
+/bin/local_bootstrap

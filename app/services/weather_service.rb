@@ -2,21 +2,41 @@ module WeatherService
   
   require 'open-uri'
   require 'json'
+  require 'thread'
   
   def self.latest
-    observations = Observations.new(JSON.parse(open('http://www.bom.gov.au/fwo/IDV60901/IDV60901.95936.json').read))
-    forecast = Forecast.new(Nokogiri::HTML(open('http://www.bom.gov.au/vic/forecasts/melbourne.shtml')))
     { 
-      "current_temp" => observations.current_temp,
-      "highest_temp" => observations.highest_temp,
-      "today_max" => forecast.today_max,
-      "tomorrow_max" => forecast.tomorrow_max,
-      "today_chance_of_rain" => forecast.today_chance_of_rain,
-      "tomorrow_chance_of_rain" => forecast.tomorrow_chance_of_rain
+      "current_temp" => @@observations.current_temp,
+      "highest_temp" => @@observations.highest_temp,
+      "today_max" => @@forecast.today_max,
+      "tomorrow_max" => @@forecast.tomorrow_max,
+      "today_chance_of_rain" => @@forecast.today_chance_of_rain,
+      "tomorrow_chance_of_rain" => @@forecast.tomorrow_chance_of_rain
     }
   end
   
-  private 
+  def self.update_observations
+    @@observation_result = Observations.new(JSON.parse(open('http://www.bom.gov.au/fwo/IDV60901/IDV60901.95936.json').read))
+  end
+  
+  def self.update_forecast
+    @@forecast = Forecast.new(Nokogiri::HTML(open('http://www.bom.gov.au/vic/forecasts/melbourne.shtml')))
+  end
+  
+
+  
+  
+  mutex = Mutex.new
+  
+  Thread.new do
+    loop do
+      mutex.synchronize do
+        self.update_observations
+        self.update_forecast
+        sleep 30
+      end
+    end
+  end
   
   class Observations
     
@@ -60,5 +80,8 @@ module WeatherService
     end
     
   end
+  
+  @@observations = self.update_observations
+  @@forecast = self.update_forecast
   
 end

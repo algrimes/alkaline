@@ -25,7 +25,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
 gem 'nokogiri'
-gem 'openssl'
 gem 'time_difference'
 gem 'ptv_api'
 
